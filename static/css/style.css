@@ -1,0 +1,986 @@
+/* static/css/style.css */
+
+/* --- Color Variables --- */
+:root {
+    /* Primary Brand Colors */
+    --brand-purple: #7B68EE; /* A moderate purple for branding/main accents */
+    --brand-blue: #4A90E2;   /* The blue used in the hero section and some cards */
+
+    /* General UI Colors */
+    --background-light-grey: #F0F2F5; /* Very light grey for general page background */
+    --background-dark-grey: #2C3E50;  /* Dark grey/blue for admin sidebar */
+    --white-color: #FFFFFF;
+    --text-dark: #333333; /* Dark text for readability */
+    --text-medium: #666666; /* Medium grey text for descriptions */
+    --border-light: #E0E0E0; /* Light border color */
+    --shadow-light: rgba(0, 0, 0, 0.05);
+    --shadow-medium: rgba(0, 0, 0, 0.1);
+    --shadow-strong: rgba(0, 0, 0, 0.15);
+
+    /* Event Package Card Colors (from screenshots) */
+    --card-pink: #FF69B4;  /* Birthday Party */
+    --card-purple: #8A2BE2; /* DJ Night */
+    --card-blue: #4A90E2;   /* Private Party (same as brand-blue) */
+    --card-red: #FF4500;    /* Wedding Celebration (based on screenshot icon color) */
+    --card-green: #32CD32;  /* Corporate Event */
+    --card-orange: #FFA500; /* Photo Shoot */
+
+    /* Status/Action Colors */
+    --status-pending: #FFC107; /* Warning yellow */
+    --status-confirmed: #28A745; /* Success green */
+    --status-rejected: #DC3545; /* Danger red */
+
+    /* Admin specific colors (from screenshot) */
+    --admin-stat-total: #7B68EE; /* Purple for total bookings */
+    --admin-stat-pending: #FFC107; /* Yellow for pending */
+    --admin-stat-confirmed: #28A745; /* Green for confirmed */
+    --admin-stat-rejected: #DC3545; /* Red for rejected */
+}
+
+/* --- Base & Utility Styles --- */
+body {
+    font-family: 'Arial', sans-serif;
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+    color: var(--text-dark);
+    background-color: var(--background-light-grey); /* Overall page background */
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.mb-3 { margin-bottom: 1rem; }
+.mt-3 { margin-top: 1rem; }
+.mb-4 { margin-bottom: 1.5rem; }
+.mt-4 { margin-top: 1.5rem; }
+
+/* Buttons */
+.btn {
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: var(--brand-blue); /* Consistent blue button */
+    color: var(--white-color);
+}
+
+.btn-primary:hover {
+    background-color: #3a7bd2; /* Darker blue on hover */
+    transform: translateY(-2px);
+}
+
+.btn-danger {
+    background-color: var(--status-rejected); /* Red for danger actions */
+    color: var(--white-color);
+}
+.btn-danger:hover {
+    background-color: #be2e2e; /* Darker red */
+    transform: translateY(-2px);
+}
+
+/* --- Header Styles (from screenshot) --- */
+header {
+    background-color: var(--white-color); /* White header background */
+    padding: 1rem 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05); /* Subtle shadow */
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: var(--brand-purple); /* Purple logo color */
+}
+
+nav ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    gap: 25px; /* Space out nav items */
+}
+
+nav ul li a {
+    color: var(--text-medium); /* Lighter grey for inactive links */
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease, background-color 0.3s ease, border-radius 0.3s ease;
+    padding: 8px 15px; /* Add padding for hover effect */
+    border-radius: 5px; /* Rounded corners for hover */
+}
+
+nav ul li a:hover,
+nav ul li a.active {
+    color: var(--brand-blue); /* Blue text on hover/active */
+    background-color: rgba(74, 144, 226, 0.1); /* Very light blue background */
+}
+
+/* --- Hero Section (from screenshot) --- */
+.hero-section {
+    background-color: var(--brand-blue); /* Solid blue background */
+    color: var(--white-color);
+    padding: 80px 0;
+    text-align: center;
+}
+
+.hero-section h1 {
+    font-size: 3.5rem;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.hero-section p {
+    font-size: 1.2rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* --- Event Packages Section (from screenshot) --- */
+.event-packages-section {
+    padding: 60px 0;
+    background-color: var(--background-light-grey);
+    color: var(--text-dark);
+}
+
+.event-packages-section h2,
+.event-packages-section p {
+    color: var(--text-dark);
+}
+
+/* REVISED: Flexbox for equal height package cards and consistent bottom alignment */
+.package-grid {
+    display: flex; /* Changed from grid to flex */
+    flex-wrap: wrap; /* Allows cards to wrap to the next line on smaller screens */
+    gap: 30px; /* Space between cards */
+    margin-top: 40px;
+    justify-content: center; /* Centers cards horizontally */
+    align-items: stretch; /* IMPORTANT: Makes all direct flex children (package-card) stretch to the height of the tallest one */
+}
+
+.package-card {
+    background-color: var(--white-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px var(--shadow-medium);
+    overflow: hidden;
+    display: flex; /* Make the card itself a flex container */
+    flex-direction: column; /* Stack its content vertically */
+    flex: 1; /* Allows cards to grow and shrink, making them equal width initially */
+    min-width: 280px; /* Minimum width before wrapping */
+    max-width: 350px; /* Max width for larger screens */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    text-align: left;
+    position: relative;
+    /* REMOVED: padding-bottom: 20px; from here. We'll handle it inside with button margin-bottom */
+}
+
+.package-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 12px 25px var(--shadow-strong);
+}
+
+.package-card .package-icon {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3.5rem;
+    color: var(--white-color);
+    z-index: 1;
+}
+
+/* Specific colors for package icons/headers */
+/* ... (NO CHANGE to .package-card.birthday .package-icon etc.) ... */
+.package-card.birthday .package-icon { background-color: var(--card-pink); }
+.package-card.dj-night .package-icon { background-color: var(--card-purple); }
+.package-card.private-party .package-icon { background-color: var(--card-blue); }
+.package-card.wedding .package-icon { background-color: var(--card-red); }
+.package-card.corporate .package-icon { background-color: var(--card-green); }
+.package-card.photo-shoot .package-icon { background-color: var(--card-orange); }
+
+
+
+
+.package-card-content {
+    padding: 100px 25px 25px 25px; /* Added padding-bottom to ensure space below content */
+    position: relative;
+    z-index: 2;
+    flex-grow: 1; /* CRITICAL: This makes the content area expand to fill all available space */
+    display: flex; /* Make package-card-content a flex container */
+    flex-direction: column; /* Stack its children vertically */
+}
+
+.package-card h3 {
+    font-size: 1.7rem;
+    margin-top: 0;
+    margin-bottom: 10px;
+    color: var(--text-dark);
+}
+
+.package-card > p { /* Description directly under h3 */
+    font-size: 0.95rem;
+    color: var(--text-medium);
+    margin-bottom: 15px;
+}
+
+.package-card h4 { /* What's Included title */
+    color: var(--text-dark);
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 5px;
+}
+
+.package-card ul {
+    list-style: none;
+    padding: 0;
+    margin-bottom: 20px; /* Space below the list */
+    text-align: left;
+    flex-grow: 1; /* Allows the list to take available space and push elements below */
+}
+
+.package-card ul li {
+    margin-bottom: 8px;
+    font-size: 0.9rem;
+    color: var(--text-dark);
+    display: flex;
+    align-items: flex-start; /* Ensure checkmark aligns with top of multi-line text */
+}
+
+.package-card ul li .fas.fa-check-circle {
+    color: var(--status-confirmed);
+    margin-right: 10px;
+    font-size: 1rem;
+    margin-top: 2px; /* Slight adjustment for alignment */
+}
+
+.package-card .price {
+    font-size: 2.2rem;
+    font-weight: bold;
+    color: var(--brand-blue);
+    padding: 15px 25px;
+    background-color: var(--background-light-grey);
+    border-top: 1px solid var(--border-light);
+    text-align: center;
+    
+    /* CRITICAL: margin-top: auto pushes this to the bottom of its flex container */
+    margin-top: auto; 
+    margin-bottom: 0; /* No bottom margin here */
+    
+    width: 100%; /* Spans full width of its parent */
+    box-sizing: border-box; /* Include padding in width */
+}
+
+.package-card .book-event-btn {
+    display: block;
+    /* Use 100% width and rely on padding for spacing within the card */
+    width: calc(100% - 50px); /* 100% of parent - 25px left padding - 25px right padding */
+    margin: 15px auto 0 auto; /* 15px from price, auto for centering, 0 bottom */
+    padding: 12px 25px; /* Internal button padding */
+    font-size: 1.05rem;
+    border-radius: 8px;
+    box-sizing: border-box; /* Crucial for padding */
+    text-align: center;
+    color: var(--white-color); /* Ensure text color is white */
+    border: none; /* Make sure no default button border is interfering */
+    cursor: pointer; /* Ensure it's clickable */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Add transition for hover effect */
+}
+
+/* Specific colors for package buttons */
+/* These rules are good, just ensure no general .book-event-btn background-color overrides them */
+.package-card.birthday .book-event-btn { background-color: var(--card-pink); }
+.package-card.birthday .book-event-btn:hover { background-color: #e05c9a; }
+.package-card.dj-night .book-event-btn { background-color: var(--card-purple); }
+.package-card.dj-night .book-event-btn:hover { background-color: #7b20cc; }
+.package-card.private-party .book-event-btn { background-color: var(--card-blue); }
+.package-card.private-party .book-event-btn:hover { background-color: #3a7bd2; }
+.package-card.wedding .book-event-btn { background-color: var(--card-red); }
+.package-card.wedding .book-event-btn:hover { background-color: #e03d00; }
+.package-card.corporate .book-event-btn { background-color: var(--card-green); }
+.package-card.corporate .book-event-btn:hover { background-color: #2aaa2a; }
+.package-card.photo-shoot .book-event-btn { background-color: var(--card-orange); }
+.package-card.photo-shoot .book-event-btn:hover { background-color: #e09200; }
+
+
+
+/* --- Stats Section (from screenshot) --- */
+.stats-section {
+    padding: 50px 0;
+    background-color: var(--white-color); /* White background for stats section */
+    color: var(--text-dark);
+    text-align: center;
+    border-top: 1px solid var(--border-light);
+}
+
+.stats-grid {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.stat-item {
+    flex: 1 1 200px;
+    padding: 20px;
+    background-color: var(--background-light-grey); /* Light grey background for stat items */
+    border-radius: 8px;
+    box-shadow: var(--shadow-light);
+    max-width: 250px;
+    border: 1px solid var(--border-light);
+}
+
+.stat-item span {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--brand-purple); /* Purple numbers */
+    display: block;
+    margin-bottom: 10px;
+}
+
+.stat-item p {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+}
+
+/* --- Book Event Page (from screenshot) --- */
+.book-event-main {
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px 20px;
+    background-color: var(--background-light-grey); /* Light grey background */
+}
+
+.book-event-section {
+    width: 100%;
+    max-width: 1000px; /* Wider form container */
+    margin: 0 auto;
+    padding: 0;
+    display: flex; /* Use flexbox for main form and side cards */
+    gap: 30px;
+    align-items: flex-start; /* Align items to the top */
+}
+
+.book-event-form-container {
+    background-color: var(--white-color);
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 10px 20px var(--shadow-medium);
+    padding: 40px;
+    flex: 2; /* Takes more space */
+    text-align: left; /* Align form content left */
+}
+
+.book-event-form-container h2 {
+    font-size: 2.2rem;
+    color: var(--text-dark);
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+.book-event-form-container .form-description {
+    font-size: 1rem;
+    color: var(--text-medium);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+#bookEventForm {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px; /* More space between fields */
+}
+
+.form-group label {
+    font-weight: normal; /* Less bold labels */
+    color: var(--text-medium);
+    font-size: 0.95rem;
+}
+
+.form-group input[type="text"],
+.form-group input[type="tel"],
+.form-group input[type="email"],
+.form-group input[type="date"],
+.form-group input[type="number"],
+.form-group textarea {
+    padding: 12px 15px;
+    border: 1px solid var(--border-light);
+    border-radius: 8px; /* More rounded inputs */
+    font-size: 1rem;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    border-color: var(--brand-blue);
+    box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.2);
+}
+
+.btn-submit {
+    grid-column: span 2;
+    background-color: var(--brand-blue); /* Blue submit button */
+    color: var(--white-color);
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    justify-self: center;
+    margin-top: 20px;
+}
+
+/* Side Info Cards on Book Event Page */
+.book-event-side-info {
+    flex: 1; /* Takes remaining space */
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.info-card {
+    background-color: var(--white-color);
+    border-radius: 12px;
+    box-shadow: 0 10px 20px var(--shadow-medium);
+    padding: 30px;
+}
+
+.info-card h3 {
+    font-size: 1.5rem;
+    margin-top: 0;
+    margin-bottom: 20px;
+    color: var(--text-dark);
+}
+
+.info-card.what-happens-next ol {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-card.what-happens-next ol li {
+    display: flex;
+    align-items: flex-start;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    color: var(--text-medium);
+}
+
+.info-card.what-happens-next ol li span {
+    font-weight: bold;
+    color: var(--brand-blue); /* Blue step numbers */
+    margin-right: 15px;
+    width: 25px; /* Fixed width for numbers */
+    height: 25px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid var(--brand-blue);
+    border-radius: 50%;
+    font-size: 0.9rem;
+    flex-shrink: 0; /* Prevent shrinking */
+}
+
+.info-card.contact-info {
+    background-color: var(--card-purple); /* Purple background for contact info */
+    color: var(--white-color);
+}
+
+.info-card.contact-info h3 {
+    color: var(--white-color); /* White heading */
+}
+
+.info-card.contact-info ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.info-card.contact-info ul li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    font-size: 1rem;
+}
+
+.info-card.contact-info ul li i {
+    margin-right: 15px;
+    font-size: 1.2rem;
+    color: var(--white-color);
+}
+
+/* --- Admin Dashboard (from screenshot) --- */
+.admin-dashboard-wrapper {
+    display: flex;
+    min-height: 100vh;
+    background-color: var(--background-light-grey); /* Overall light grey background */
+}
+
+/* Admin Sidebar */
+.admin-sidebar {
+    width: 250px;
+    background-color: var(--brand-purple); /* Purple sidebar from screenshot */
+    color: var(--white-color);
+    padding: 20px 0;
+    box-shadow: var(--shadow-medium);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    overflow-y: auto;
+}
+
+.sidebar-header {
+    text-align: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Lighter border on purple */
+}
+
+.sidebar-header h3 {
+    font-size: 1.8rem;
+    margin: 0;
+    color: var(--white-color);
+}
+
+.sidebar-nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 20px 0;
+}
+
+.sidebar-nav ul li a {
+    display: flex;
+    align-items: center;
+    padding: 15px 20px;
+    color: rgba(255, 255, 255, 0.8); /* Slightly transparent white for inactive links */
+    text-decoration: none;
+    font-size: 1.1rem;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.sidebar-nav ul li a:hover,
+.sidebar-nav ul li a.active {
+    background-color: rgba(255, 255, 255, 0.1); /* Very light white background on hover/active */
+    color: var(--white-color);
+}
+
+.sidebar-nav ul li a i {
+    margin-right: 10px;
+    font-size: 1.2rem;
+}
+
+.sidebar-footer {
+    padding: 20px;
+    border-top: 1px solid rgba(255, 255, 255, 0.2);
+    text-align: center;
+}
+
+.logout-btn {
+    background-color: var(--status-rejected); /* Red logout button */
+    color: var(--white-color);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.logout-btn:hover {
+    background-color: #be2e2e;
+}
+
+/* Admin Main Content */
+.admin-main-content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: var(--background-light-grey); /* Overall content area background */
+    /* No direct white background for the whole content area as cards are white */
+    overflow-y: auto;
+}
+
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+    /* Removed border-bottom from here, as cards will define structure */
+}
+
+.top-bar h1 {
+    font-size: 2.2rem;
+    color: var(--text-dark);
+    margin: 0;
+}
+
+.top-actions {
+    display: flex; /* For buttons side-by-side */
+    gap: 15px; /* Space between action buttons */
+}
+
+.action-btn {
+    background-color: var(--brand-blue); /* Blue action buttons */
+    color: var(--white-color);
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 0.95rem;
+}
+
+.action-btn:hover {
+    background-color: #3a7bd2;
+}
+
+/* Admin Card Styles (general for all cards like stats, bookings, busy dates) */
+.card {
+    background-color: var(--white-color); /* White background for all admin cards */
+    border-radius: 12px; /* More rounded corners */
+    box-shadow: 0 8px 16px var(--shadow-medium); /* Prominent shadow for cards */
+    padding: 25px;
+    margin-bottom: 25px; /* Space between cards */
+    border: 1px solid var(--border-light); /* Subtle border */
+}
+
+/* Dashboard Overview - Stats Grid */
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 25px;
+    margin-bottom: 30px; /* Space below stats grid */
+}
+
+.stat-card {
+    text-align: center;
+    /* Background and shadow inherited from .card */
+}
+
+.stat-card h3 {
+    font-size: 1.1rem;
+    color: var(--text-medium);
+    margin-bottom: 10px;
+    font-weight: normal; /* Less bold for stats title */
+}
+
+.stat-card p {
+    font-size: 2.8rem; /* Larger numbers */
+    font-weight: bold;
+    margin: 0;
+}
+/* Specific colors for stat numbers */
+#total-bookings-stat { color: var(--admin-stat-total); }
+#pending-bookings-stat { color: var(--admin-stat-pending); }
+#confirmed-bookings-stat { color: var(--admin-stat-confirmed); }
+#rejected-bookings-stat { color: var(--admin-stat-rejected); }
+
+
+/* Bookings Management & Busy Dates (Containers) */
+.admin-content-grid { /* NEW: For 2-column layout in admin content */
+    display: grid;
+    grid-template-columns: 2fr 1fr; /* Bookings takes 2/3, busy dates/actions 1/3 */
+    gap: 30px;
+    align-items: flex-start; /* Align content to top */
+}
+
+.bookings-section { /* Wrapper for Bookings */
+    grid-column: 1;
+}
+
+.busy-dates-actions-section { /* Wrapper for Busy Dates & Quick Actions */
+    grid-column: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+.section-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.section-header h2 {
+    margin: 0;
+    color: var(--text-dark);
+    font-size: 1.8rem;
+}
+
+.filter-controls select {
+    padding: 8px 12px;
+    border: 1px solid var(--border-light);
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    background-color: var(--white-color);
+    color: var(--text-dark);
+}
+
+/* Booking Cards (within bookings-list) */
+.booking-card {
+    /* Inherits .card styles for background, shadow, border-radius */
+    padding: 20px;
+    margin-bottom: 15px;
+    transition: transform 0.2s ease;
+}
+
+.booking-card:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-medium);
+}
+
+.booking-card h3 {
+    font-size: 1.3rem; /* Slightly smaller h3 for booking card */
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.booking-card h3 i { /* Icon next to booking name */
+    color: var(--brand-purple); /* Example color */
+    margin-right: 8px;
+}
+
+.booking-card p {
+    margin-bottom: 8px;
+    color: var(--text-medium);
+    font-size: 0.95rem;
+    display: flex; /* For icon alignment */
+    align-items: center;
+}
+.booking-card p i {
+    margin-right: 10px;
+    color: var(--brand-blue); /* Icon color */
+    font-size: 0.95rem;
+}
+
+
+.status-badge {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.75rem; /* Smaller font for badge */
+    font-weight: bold;
+    color: var(--white-color);
+}
+
+.status-badge.pending-review { background-color: var(--status-pending); }
+.status-badge.confirmed { background-color: var(--status-confirmed); }
+.status-badge.rejected { background-color: var(--status-rejected); }
+
+.booking-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end;
+}
+
+.booking-actions .btn { /* General styling for action buttons within booking cards */
+    padding: 8px 15px;
+    font-size: 0.9rem;
+    border-radius: 5px;
+}
+.booking-actions .confirm-btn { background-color: var(--status-confirmed); }
+.booking-actions .confirm-btn:hover { background-color: #218838; }
+.booking-actions .reject-btn { background-color: var(--status-pending); } /* Use pending color for reject */
+.booking-actions .reject-btn:hover { background-color: #e0a800; }
+.booking-actions .delete-btn { background-color: var(--status-rejected); }
+.booking-actions .delete-btn:hover { background-color: #c82333; }
+
+
+/* Busy Dates Specifics */
+.busy-date-item {
+    /* Inherits .card styles for background, shadow, border-radius */
+    padding: 15px; /* Slightly less padding */
+    margin-bottom: 15px; /* Space between items if not full card */
+}
+
+.busy-date-item h4 {
+    font-size: 1.1rem;
+    color: var(--text-dark);
+    margin-top: 0;
+    margin-bottom: 10px;
+    border-bottom: 1px solid var(--border-light);
+    padding-bottom: 5px;
+}
+.busy-date-item p { /* For the booking details under busy date */
+    font-size: 0.9rem;
+    color: var(--text-medium);
+    margin-bottom: 5px;
+}
+
+
+/* Quick Actions Card */
+.quick-actions-card .action-btn {
+    display: block; /* Make buttons stack */
+    width: 100%;
+    margin-bottom: 15px; /* Space between buttons */
+    padding: 12px 0; /* More vertical padding */
+    font-size: 1rem;
+    border-radius: 8px; /* More rounded buttons */
+}
+.quick-actions-card .action-btn:last-child {
+    margin-bottom: 0;
+}
+
+
+/* --- Footer Styles (Minimal change, keeping consistent) --- */
+footer {
+    background-color: var(--text-dark); /* Dark footer */
+    color: var(--light-text-color);
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto;
+    font-size: 0.9rem;
+}
+
+/* --- Responsive Adjustments --- */
+@media (max-width: 992px) {
+    .admin-dashboard-wrapper {
+        flex-direction: column;
+    }
+    .admin-sidebar {
+        width: 100%;
+        height: auto;
+        position: relative; /* Not sticky on mobile */
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+    .sidebar-nav ul {
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    .sidebar-nav ul li a {
+        padding: 8px 12px;
+        font-size: 0.95rem;
+    }
+    .admin-main-content {
+        padding: 20px;
+        margin: 15px;
+    }
+    .top-bar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+    .top-actions {
+        width: 100%;
+        justify-content: space-around;
+        margin-top: 15px;
+    }
+    .top-actions .btn {
+        flex-grow: 1;
+        margin-left: 0;
+    }
+    .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 15px;
+    }
+
+    /* Book Event Page responsive */
+    .book-event-section {
+        flex-direction: column;
+        gap: 20px;
+        max-width: 90%;
+    }
+    #bookEventForm {
+        grid-template-columns: 1fr;
+    }
+    .form-group.full-width, .btn-submit {
+        grid-column: span 1;
+    }
+    .book-event-form-container {
+        padding: 25px;
+    }
+
+    /* Admin Dashboard content grid */
+    .admin-content-grid {
+        grid-template-columns: 1fr; /* Stack on smaller screens */
+    }
+    .bookings-section, .busy-dates-actions-section {
+        grid-column: span 1;
+    }
+}
+
+@media (max-width: 576px) {
+    .hero-section h1 {
+        font-size: 2.5rem;
+    }
+    .hero-section p {
+        font-size: 1rem;
+    }
+    .package-grid {
+        grid-template-columns: 1fr; /* Single column on very small screens */
+        gap: 20px;
+    }
+    .package-card .package-icon {
+        height: 80px; /* Adjust icon bar height */
+        font-size: 2.5rem;
+    }
+    .package-card-content {
+        padding-top: 90px; /* Adjust padding to match smaller icon bar */
+    }
+    .package-card h3 {
+        font-size: 1.5rem;
+    }
+}
+
+.message {
+    padding: 15px;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    text-align: center;
+    display: none; /* Hidden by default */
+    opacity: 0; /* For fade in/out effect */
+    transition: opacity 0.3s ease-in-out; /* Smooth transition */
+    z-index: 100; /* Ensure it's above other content */
+    position: relative; /* Or absolute, fixed depending on desired layout */
+}
+
+.message.success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* When JS sets display to block, opacity should be 1 */
+.message[style*="display: block"] {
+    opacity: 1;
+}
+

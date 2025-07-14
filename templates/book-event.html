@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Your Event - EventMaster Pro</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <header>
+        <div class="container header-content">
+            <div class="logo">EventMaster Pro</div>
+            <nav>
+                <ul>
+                    <li><a href="/">Events</a></li>
+                    <li><a href="/book-event" class="active">Book Event</a></li>
+                    <li><a href="/admin-login">Admin</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="book-event-main">
+        <section class="book-event-section">
+            <div class="book-event-form-container">
+                <h2>Book Your Event</h2>
+                <p class="form-description">Fill out the form below and our team will get in touch with you to finalize your event details!</p>
+
+                <div id="formMessage" class="message" style="display:none;"></div>
+
+                <form id="bookEventForm">
+                    <input type="hidden" id="package_id" name="package_id">
+
+                    <div class="form-group">
+                        <label for="full_name">Full Name:</label>
+                        <input type="text" id="full_name" name="full_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone_number">Phone Number:</label>
+                        <input type="tel" id="phone_number" name="phone_number" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email_address">Email Address:</label>
+                        <input type="email" id="email_address" name="email_address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="preferred_date">Preferred Event Date:</label>
+                        <input type="date" id="preferred_date" name="preferred_date" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="location">Event Location:</label>
+                        <input type="text" id="location" name="location" placeholder="e.g., Banquet Hall, Home, Park" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="expected_guests">Expected Number of Guests:</label>
+                        <input type="number" id="expected_guests" name="expected_guests" min="1" required>
+                    </div>
+
+                    <div class="form-group full-width">
+                        <label for="additional_requirements">Additional Requirements / Notes:</label>
+                        <textarea id="additional_requirements" name="additional_requirements" rows="5" placeholder="Any specific themes, catering needs, equipment, etc."></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-submit">Submit Booking Request</button>
+                </form>
+            </div>
+
+            <div class="book-event-side-info">
+                <div class="info-card what-happens-next">
+                    <h3>What Happens Next?</h3>
+                    <ol>
+                        <li><span>1</span> Request Review <br> We'll review your request s</li>
+                        <li><span>2</span> Availability Check <br> We'll check our calendar for your preferred date</li>
+                        <li><span>3</span> Confirmation <br> We'll contact you with pricing and next steps</li>
+                    </ol>
+                </div>
+
+                <div class="info-card contact-info">
+                    <h3>Contact Information</h3>
+                    <ul>
+                        <li><i class="fas fa-phone-alt"></i> 9611824264</li>
+                        <li><i class="fas fa-envelope"></i> dphevents@gmail.com</li>
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Event Street, Reva University, Bangalore-560049</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 EventMaster Pro. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
